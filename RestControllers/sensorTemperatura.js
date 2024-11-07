@@ -83,8 +83,6 @@ async function getLogByDateBetween(req,res){
   
 }
 
-
-
 // -- insertLogTemperatura --
 // Este método realiza un insert en la tabla "sensor_temperatura" con los valores que se reciban en el cuerpo de la petición.
 
