@@ -19,22 +19,33 @@ const serverPort = 3000
 const contextURL = '/iot'; //If needed, project context
 const api = '/api'; // Sugested API URL
 
-//SENSOR 1 URLS. Configurar URLS por cada sensor.
+// SENSOR 1 (Temperature) URLs
 const getTemperatureSensor = '/getTemperatures'
 const getTemperatureSensorByDate = '/getTemperatures'
-const postTemperatureSensor = '/insertTemperature'; //Implemented Endpoint URL
+const postTemperatureSensor = '/insertTemperature'; 
 
+// SENSOR 2 (Soil Moisture) URLs
+const getSoilMoistureSensor = '/getSoilMoisture';
+const postSoilMoistureSensor = '/insertSoilMoisture';
 
 /*
  * DB Queries
  * Agregar queries por sensor.
  */
+
+// Temperature Sensor Queries
 const selectTemperature = 'SELECT * FROM temps';
 const selectTemperatureByDate = 'SELECT * FROM temps WHERE fecha between ? and ?';
-const insertTemperature = 'INSERT INTO temps (id) values (?)';
+const insertTemperature = 'INSERT INTO temps (temperature, humidity) VALUES (?, ?)';
+
+// Soil Moisture Sensor Queries
+const selectSoilMoisture = 'SELECT * FROM sensor_soil_moisture';
+const insertSoilMoisture = 'INSERT INTO sensor_soil_moisture (moisture_level) VALUES (?)';
 
 
-module.exports= {
-   dbHost,dbPort,dbUser,dbPass,dbName,serverPort, contextURL,api,getTemperatureSensor,
-   getTemperatureSensorByDate,postTemperatureSensor,selectTemperature,selectTemperatureByDate,insertTemperature
-}
+module.exports = {
+   dbHost, dbPort, dbUser, dbPass, dbName, serverPort, contextURL, api,
+   getTemperatureSensor, getTemperatureSensorByDate, postTemperatureSensor,
+   selectTemperature, selectTemperatureByDate, insertTemperature,
+   getSoilMoistureSensor, postSoilMoistureSensor, selectSoilMoisture, insertSoilMoisture
+};

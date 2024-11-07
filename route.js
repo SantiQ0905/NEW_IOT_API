@@ -10,6 +10,7 @@
 const constants = require("./constants")
 const express = require('express');
 const temperaturaController = require('./RestControllers/sensorTemperatura.js'); 
+const soilMoistureController = require('./RestControllers/sensorHumedad.js'); // New import
 const router = express.Router();
 
 /**
@@ -26,6 +27,9 @@ const router = express.Router();
 router.get(constants.contextURL + constants.api + constants.getTemperatureSensor, temperaturaController.getLogTemperatura);
 router.post(constants.contextURL + constants.api + constants.getTemperatureSensorByDate, temperaturaController.getLogByDateBetween);
 router.post(constants.contextURL + constants.api + constants.postTemperatureSensor,temperaturaController.insertLogTemperatura);
+
+router.get(constants.contextURL + constants.api + constants.getSoilMoistureSensor, soilMoistureController.getSoilMoistureLog);
+router.post(constants.contextURL + constants.api + constants.postSoilMoistureSensor, soilMoistureController.insertSoilMoistureLog);
 
 
 //le decimos a Node que queremos hacer uso de nuestro router en otros archivos (como por ejemplo, app.js)
