@@ -1,36 +1,32 @@
-/**
- * Instrucciones:
- * 
- * 1. Por cada sensor que tenga tu tabla de base de datos corresponsientes, deberás crear 
- *    un archivo similar al archivo /RestControllers/sensorTemperatura.js
- * 2. Registra en el router todos los métodos disponibles en tu controlador con una URL que haga mencion a dicha acción
- * 
- * 
- */
+/*
+-- route.js --
+
+En este archivo se definen las rutas de cada endpoint y se asigna su respectivo controlador.
+
+Autor: 
+Santiago Quintana Moreno A01571222
+
+Equipo #1: “Null”
+Javier Santos Pérez A01198909
+Irvin David Ornelas García A00839065
+Alejandro Orta Rodríguez A00840490
+Santiago Quintana Moreno A01571222  
+*/
+
 const constants = require("./constants")
 const express = require('express');
 const temperaturaController = require('./RestControllers/sensorTemperatura.js'); 
 const soilMoistureController = require('./RestControllers/sensorHumedad.js'); // New import
 const router = express.Router();
 
-/**
- * URL's que debes configurar en tu server para incluir tus endpoints que reciben peticiones para cada 
- * sensor.
- * 
- * Hay 3 métodos actualmente, 1 get HTTP y 2 post HTTP. En todos, el primer argumento es una url (creada de manera parametrizada con constantes)
- * El segundo método es la función
- *  js que responderá a las peticiones de dicha URL. Estas están en el archivo sensorTemperatura.js
- * 
- * Para otros sensores, puedes agregar otros archivos y configurar sus url's.
- * 
- */
-router.get(constants.contextURL + constants.api + constants.getTemperatureSensor, temperaturaController.getLogTemperatura);
-router.post(constants.contextURL + constants.api + constants.getTemperatureSensorByDate, temperaturaController.getLogByDateBetween);
-router.post(constants.contextURL + constants.api + constants.postTemperatureSensor,temperaturaController.insertLogTemperatura);
+// Definiciones de rutas de cada endpoint y su respectivo controlador
+    // Rutas de sensor de temperatura
+    router.get(constants.contextURL + constants.api + constants.getTemperatureSensor, temperaturaController.getLogTemperatura);
+    router.post(constants.contextURL + constants.api + constants.getTemperatureSensorByDate, temperaturaController.getLogByDateBetween);
+    router.post(constants.contextURL + constants.api + constants.postTemperatureSensor,temperaturaController.insertLogTemperatura);
+    
+    // Rutas de sensor de humedad
+    router.get(constants.contextURL + constants.api + constants.getSoilMoistureSensor, soilMoistureController.getSoilMoistureLog);
+    router.post(constants.contextURL + constants.api + constants.postSoilMoistureSensor, soilMoistureController.insertSoilMoistureLog);
 
-router.get(constants.contextURL + constants.api + constants.getSoilMoistureSensor, soilMoistureController.getSoilMoistureLog);
-router.post(constants.contextURL + constants.api + constants.postSoilMoistureSensor, soilMoistureController.insertSoilMoistureLog);
-
-
-//le decimos a Node que queremos hacer uso de nuestro router en otros archivos (como por ejemplo, app.js)
 module.exports = router;
