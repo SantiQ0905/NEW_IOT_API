@@ -2,7 +2,7 @@
 -- sensorTemperatura.js --
 
 En este archivo se encuentran los métodos que se encargan de realizar las operaciones CRUD 
-en la tabla "sensor_temperatura" de la base de datos.
+en la tabla "ambientTempHum_sensor" de la base de datos.
 
 Autor: 
 Santiago Quintana Moreno A01571222
@@ -18,10 +18,8 @@ Santiago Quintana Moreno A01571222
 const mysql = require("../database/db");
 const constants = require("../constants")
 
-
-
 // -- getLogTemperatura --
-// Este método realiza un select de todos los registros ubicados en una tabla llamada "sensor_temperatura".
+// Este método realiza un select de todos los registros ubicados en una tabla llamada "ambientTempHum_sensor".
 
 async function getLogTemperatura(req,res){
   try{
@@ -51,7 +49,7 @@ async function getLogTemperatura(req,res){
 
 
 // -- getLogByDateBetween --
-// Este método realiza un select de todos los registros ubicados en una tabla llamada "sensor_temperatura".
+// Este método realiza un select de todos los registros ubicados en una tabla llamada "ambientTempHum_sensor".
 
 async function getLogByDateBetween(req,res){
   try{
@@ -84,11 +82,11 @@ async function getLogByDateBetween(req,res){
 }
 
 // -- insertLogTemperatura --
-// Este método realiza un insert en la tabla "sensor_temperatura" con los valores que se reciban en el cuerpo de la petición.
+// Este método realiza un insert en la tabla "ambientTempHum_sensor" con los valores que se reciban en el cuerpo de la petición.
 
 async function insertLogTemperatura(req,res){
   try{
-    var sql = "INSERT INTO temps (temperature, humidity) VALUES (?, ?)";
+    var sql = "INSERT INTO ambientTempHum_sensor (temperature, humidity) VALUES (?, ?)";
     var temperature = req.body.temperature;
     var humidity = req.body.humidity;
     var conn = mysql.getConnection();
@@ -118,4 +116,4 @@ async function insertLogTemperatura(req,res){
   
 }
 
-module.exports = {insertLogTemperatura, getLogTemperatura,getLogByDateBetween};
+module.exports = {insertLogTemperatura, getLogTemperatura, getLogByDateBetween};
