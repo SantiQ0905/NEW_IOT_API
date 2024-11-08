@@ -2,16 +2,17 @@
 -- sensorHumedad.js --
 
 En este archivo se encuentran los métodos que se encargan de realizar las operaciones CRUD 
-en la tabla "sensor_temperatura" de la base de datos.
+en la tabla "sensor_soil_moisture" de la base de datos.
 
 Autor: 
+Javier Santos Pérez A01198909
+
+Coautor:
 Santiago Quintana Moreno A01571222
 
 Equipo #1: “Null”
-Javier Santos Pérez A01198909
 Irvin David Ornelas García A00839065
 Alejandro Orta Rodríguez A00840490
-Santiago Quintana Moreno A01571222  
 */
 
 const mysql = require("../database/db");
