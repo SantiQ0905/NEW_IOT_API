@@ -1,5 +1,17 @@
 /*
+-- iot.js --
 
+En este archivo se encuentran las instrucciones para la creación de la base de datos que se utilizará en el proyecto de IoT.
+El archivo se encuentra dividido en dos partes: la primera parte contiene la creación de las tablas que se utilizarán en el proyecto, y 
+la segunda parte contiene la inserción de datos de prueba en las tablas.
+
+Autor: 
+Santiago Quintana Moreno A01571222
+
+Equipo #1: “Null”
+Javier Santos Pérez A01198909
+Irvin David Ornelas García A00839065
+Alejandro Orta Rodríguez A00840490
 */
 
 
