@@ -1,56 +1,107 @@
--- MySQL dump 10.13  Distrib 8.0.35, for Win64 (x86_64)
---
--- Host: localhost    Database: iot
--- ------------------------------------------------------
--- Server version	8.0.35
+/*
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+*/
 
---
--- Table structure for table `temps`
---
 
-DROP TABLE IF EXISTS `temps`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `temps` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `valor` decimal(18,2) DEFAULT NULL,
-  `fecha` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE motor_actuator (
+                                ID_Servo INT PRIMARY KEY,
+                                Log TEXT,
+                                Date DATE,
+                                Time TIME
+);
 
---
--- Dumping data for table `temps`
---
+CREATE TABLE Plant (
+                       ID_Plant INT PRIMARY KEY,
+                       Name_Plant VARCHAR(255),
+                       Desc_Plant TEXT
+);
 
-LOCK TABLES `temps` WRITE;
-/*!40000 ALTER TABLE `temps` DISABLE KEYS */;
-INSERT INTO `temps` VALUES (1,35.00,'2024-08-28 17:00:13'),(2,34.50,'2024-08-28 17:05:13'),(3,35.50,'2024-08-28 17:10:13'),(4,33.00,'2024-08-28 17:15:13'),(5,35.00,'2024-08-28 17:20:13'),(6,34.00,'2024-08-28 17:25:13'),(7,32.00,'2024-08-28 17:30:13'),(8,33.00,'2024-08-28 17:35:13'),(9,33.90,'2024-08-28 17:40:13'),(10,34.50,'2024-08-28 17:45:13'),(11,38.00,'2024-08-29 18:09:08'),(12,39.50,'2024-08-29 18:09:25');
-/*!40000 ALTER TABLE `temps` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE User (
+                      ID_User INT PRIMARY KEY,
+                      name VARCHAR(255),
+                      password VARCHAR(255)
+);
 
---
--- Dumping routines for database 'iot'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+CREATE TABLE Settings (
+                          ID_Settings INT PRIMARY KEY,
+                          Screen_Mode VARCHAR(50)
+);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+CREATE TABLE Sensor_Catalog (
+                                ID_Sensor INT PRIMARY KEY,
+                                SensorType VARCHAR(50)
+);
 
--- Dump completed on 2024-08-29 18:19:22
+CREATE TABLE ambientTempHum_sensor (
+                                       ID INT AUTO_INCREMENT PRIMARY KEY,
+                                       ID_TSensor INT,
+                                       ID_Plant INT,
+                                       Value FLOAT,
+                                       Date DATE,
+                                       FOREIGN KEY (ID_TSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                                       FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+CREATE TABLE wind_sensor (
+                             ID INT AUTO_INCREMENT PRIMARY KEY,
+                             ID_ASensor INT,
+                             ID_Plant INT,
+                             Value FLOAT,
+                             Date DATE,
+                             FOREIGN KEY (ID_ASensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                             FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+CREATE TABLE light_sensor (
+                              ID INT AUTO_INCREMENT PRIMARY KEY,
+                              ID_LSensor INT,
+                              ID_Plant INT,
+                              Value FLOAT,
+                              Date DATE,
+                              FOREIGN KEY (ID_LSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                              FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+CREATE TABLE sensor_soil_moisture (
+                                      ID INT AUTO_INCREMENT PRIMARY KEY,
+                                      ID_EHSensor INT,
+                                      ID_Plant INT,
+                                      Value FLOAT,
+                                      Date DATE,
+                                      FOREIGN KEY (ID_EHSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                                      FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+CREATE TABLE AirV_Log (
+                          ID INT AUTO_INCREMENT PRIMARY KEY,
+                          ID_AHSensor INT,
+                          ID_Plant INT,
+                          Value FLOAT,
+                          Date DATE,
+                          FOREIGN KEY (ID_AHSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                          FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+CREATE TABLE Plant_Servo (
+                             ID INT AUTO_INCREMENT PRIMARY KEY,
+                             ID_Servo INT,
+                             ID_Plant INT,
+                             FOREIGN KEY (ID_Servo) REFERENCES motor_actuator(ID_Servo),
+                             FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+CREATE TABLE Plant_User (
+                            ID INT AUTO_INCREMENT PRIMARY KEY,
+                            ID_User INT,
+                            ID_Plant INT,
+                            FOREIGN KEY (ID_User) REFERENCES User(ID_User),
+                            FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+CREATE TABLE User_Settings (
+                               ID INT AUTO_INCREMENT PRIMARY KEY,
+                               ID_User INT,
+                               ID_Settings INT,
+                               FOREIGN KEY (ID_User) REFERENCES User(ID_User),
+                               FOREIGN KEY (ID_Settings) REFERENCES Settings(ID_Settings)
+);
