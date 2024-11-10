@@ -51,12 +51,16 @@ try {
 
 async function insertSoilMoistureLog(req, res) {
 try {
-    var sql = "INSERT INTO sensor_soil_moisture (moisture_level) VALUES (?)";
-    var moisture_level = req.body.moisture_level;
+    var sql = "INSERT INTO sensor_soil_moisture (ID_EHSensor, ID_Plant, Value, Date) VALUES (?, ?, ?, ?)";
+    var ID_EHSensor = req.body.ID_EHSensor;
+    var ID_Plant = req.body.ID_Plant;
+    var Value = req.body.Value;
+    var Date = req.body.Date;
+
     var conn = mysql.getConnection();
     conn.connect((error) => {
     if (error) throw error;
-        var params = [moisture_level];
+        var params = [ID_EHSensor,ID_Plant, Value, Date];
         conn.execute(sql, params, (error, data, fields) => {
         if (error) {
             res.status(500);

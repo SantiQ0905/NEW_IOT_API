@@ -79,11 +79,15 @@ res.send(error);
 // -- insertLogServoMotor -- 
 async function insertLogServoMotor(req, res) {
 try {
-var sql = "INSERT INTO motor_actuator (servo_motor) VALUES (?)";
-var servo_motor = req.body.servo_motor;
+var sql = "INSERT INTO motor_actuator (ID_Servo, Log, Date) VALUES (?, ?, ?)";
+var ID_Servo = req.body.ID_Servo;
+var Log = req.body.Log;
+var Date = req.body.Date;
+
 var conn = mysql.getConnection();
 conn.connect((error) => {
     if (error) throw error;
+    var params = [ID_Servo, Log, Date];
     conn.execute(sql, [servo_motor], (error, data, fields) => {
     if (error) {
         res.status(500);
@@ -92,7 +96,7 @@ conn.connect((error) => {
         console.log(data);
         res.json({
         status: 200,
-        message: "Servo motor data inserted",
+        message: "Actuador Motor datos insertados",
         affectedRows: data.affectedRows,
         });
     }

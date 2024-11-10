@@ -86,13 +86,17 @@ async function getLogByDateBetween(req,res){
 
 async function insertLogTemperatura(req,res){
   try{
-    var sql = "INSERT INTO ambientTempHum_sensor (temperature, humidity) VALUES (?, ?)";
-    var temperature = req.body.temperature;
-    var humidity = req.body.humidity;
+    var sql = "INSERT INTO ambientTempHum_sensor (ID_TSensor, ID_Plant, Value1, Value2, date) VALUES (?, ?, ?, ?, ?)";
+    var ID_TSensor = req.body.ID_TSensor;
+    var ID_Plant = req.body.ID_Plant;
+    var Value1 = req.body.Value1;
+    var Value2 = req.body.Value2;
+    var date = req.body.date;
+  
     var conn = mysql.getConnection();
     conn.connect((error)=>{
         if (error) throw error;
-        var params = [temperature, humidity]; 
+        var params = [ID_TSensor, ID_Plant, Value1, Value2, date]; 
         conn.execute(sql, params, (error, data, fields) => {
             if (error) {
               res.status(500);

@@ -52,13 +52,13 @@ const postAnemometerSensor = '/insertAnemometer';
 
 // DB Queries
 // Temperature Sensor Queries
-const selectTemperature = 'SELECT * FROM temps';
-const selectTemperatureByDate = 'SELECT * FROM temps WHERE fecha BETWEEN ? AND ?';
-const insertTemperature = 'INSERT INTO temps (temperature, humidity) VALUES (?, ?)';
+const selectTemperature = 'SELECT * FROM ambientTempHum_sensor';
+const selectTemperatureByDate = 'SELECT * FROM ambientTempHum_sensor WHERE fecha BETWEEN ? AND ?';
+const insertTemperature = 'INSERT INTO ambientTempHum_sensor (ID_TSensor, ID_Plant, Value1, Value2, date) VALUES (?, ?, ?, ?, ?)';
 
 // Soil Moisture Sensor Queries
 const selectSoilMoisture = 'SELECT * FROM sensor_soil_moisture';
-const insertSoilMoisture = 'INSERT INTO sensor_soil_moisture (moisture_level) VALUES (?)';
+const insertSoilMoisture = 'INSERT INTO sensor_soil_moisture (ID_EHSensor, ID_Plant, Value, Date) VALUES (?, ?, ?, ?)';
 
 // Light Sensor Queries
 const selectLight = 'SELECT * FROM light_sensor';
