@@ -80,35 +80,43 @@ res.send(error);
 // -- insertLogAnemometer -- 
 async function insertLogAnemometer(req, res) {
 try {
-var sql = "INSERT INTO wind_sensor (wind) VALUES (?)";
-
-// The wind value is received in the request body
-var wind = req.body.wind;
-
-var conn = mysql.getConnection();
-conn.connect((error) => {
-    if (error) throw error;
-    // Inserting the wind value into the parameters for the INSERT statement
-    conn.execute(sql, [wind], (error, data, fields) => {
-    if (error) {
-        res.status(500);
-        res.send(error.message);
-    } else {
-        console.log(data);
-        res.json({
-        status: 200,
-        message: "Wind data inserted",
-        affectedRows: data.affectedRows,
+    var sql = "INSERT INTO wind_sensor (ID_ASensor, ID_Plant, Value, Date) VALUES (?, ?, ?, ?)";
+    
+    // Extract parameters from request body
+    var ID = req.body.ID;
+    var ID_ASensor = req.body.ID_ASensor;
+    var ID_Plant = req.body.ID_Plant;
+    var Value = req.body.Value;
+    var Date = req.body.Date;
+    // Establish database connection
+    var conn = mysql.getConnection();
+    conn.connect((error) => {
+        if (error) throw error;
+        
+        // Pass parameters directly as an array
+        var params = [ID_ASensor, ID_Plant, Value, Date];
+        conn.query(sql, params, (error, data, fields) => { 
+            if (error) {
+                res.status(500);
+                res.send(error.message);
+            } else {
+                console.log(data);
+                res.json({
+                    status: 200,
+                    message: "Wind data inserted",
+                    affectedRows: data.affectedRows,
+                });
+            }
+            conn.end();
         });
-    }
-    conn.end();
     });
-});
 } catch (error) {
-console.log(error);
-res.status(500);
-res.send(error);
+    console.log(error);
+    res.status(500);
+    res.send(error);
 }
 }
+
+
 
 module.exports = { insertLogAnemometer, getLogAnemometer, getAnemometerLogByDateBetween };
