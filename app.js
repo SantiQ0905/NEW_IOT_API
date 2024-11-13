@@ -25,6 +25,7 @@ const app = express();
 const port = constants.serverPort;
 
 // Configuración del servidor web.
+app.use(express.static('public'));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -42,17 +43,19 @@ app.get("/", (req, res) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>API de Sensores IoT</title>
             <style>
-                body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; margin: 0; padding: 0; }
+                body { font-family: Arial, sans-serif; text-align: center; background-color: #ffffff; margin: 0; padding: 0; }
                 h1 { color: #333; }
                 p { color: #555; }
                 .container { padding: 20px; max-width: 600px; margin: auto; }
                 .button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px; }
                 .button:hover { background-color: #45a049; }
+                .logo { width: 500px; height: auto; margin-bottom: 20px; } /* Adjust the width as desired */
             </style>
         </head>
         <body>
             <div class="container">
-                <h1>Bienvenido a la API de Sensores IoT</h1>
+                <img src="/GROWING horizontal.png" alt="Ecosense Seeds Logo" class="logo">
+                <h1>Bienvenido a la API de ECOSENSE SEEDS</h1>
                 <p>El servidor está corriendo correctamente.</p>
                 <p>Esta API permite gestionar los datos de sensores de temperatura, humedad, luz, motores y anemómetros.</p>
                 <p>Utiliza los siguientes endpoints para interactuar con la API:</p>
@@ -74,6 +77,7 @@ app.get("/", (req, res) => {
         </html>
     `);
 });
+
 
 // Arranque del server 
 app.listen(port, () => {
