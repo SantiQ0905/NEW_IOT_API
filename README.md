@@ -1,7 +1,7 @@
 ﻿
-# API de Sensores IoT
+# Ecosense Seeds - API de Sensores IoT para Riego Automatizado
 
-Este proyecto es una API para gestionar y almacenar datos de sensores de IoT, incluyendo sensores de temperatura, humedad, luz, motores y anemómetros. La API permite realizar operaciones CRUD para cada tipo de sensor y almacenar los datos en una base de datos MySQL.
+Ecosense Seeds es un sistema de riego automatizado que utiliza sensores IoT para monitorear y gestionar el riego de plantas, optimizando el uso del agua y mejorando la salud de las plantas. Esta API permite gestionar y almacenar datos de sensores de humedad del suelo, temperatura ambiente, humedad ambiental, luz, anemómetro, y servomotores para el control de flujo de agua. Los datos se almacenan en una base de datos MySQL y están disponibles para ser visualizados en Google Looker Studio.
 
 ## Equipo de desarrollo
 **Equipo #1: “Null”**
@@ -41,8 +41,8 @@ La API ofrece los siguientes endpoints para interactuar con cada tipo de sensor:
 ### Sensor de Temperatura
 - **GET** `/getTemperatures` - Obtener datos de temperatura.
 - **POST** `/insertTemperature` - Insertar un nuevo registro de temperatura.
-  
-### Sensor de Humedad
+
+### Sensor de Humedad del Suelo
 - **GET** `/getSoilMoisture` - Obtener datos de humedad del suelo.
 - **POST** `/insertSoilMoisture` - Insertar un nuevo registro de humedad del suelo.
 

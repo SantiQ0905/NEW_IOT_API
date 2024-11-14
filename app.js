@@ -43,18 +43,18 @@ app.get("/", (req, res) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>API de Sensores IoT</title>
             <style>
-                body { font-family: Arial, sans-serif; text-align: center; background-color: #ffffff; margin: 0; padding: 0; }
-                h1 { color: #333; }
-                p { color: #555; }
+                body { font-family: Arial, sans-serif; text-align: center; background-color: #054D3B; margin: 0; padding: 0; }
+                h1 { color: #FFFFFF; }
+                p, ul li { color: #D3D3D3; } /* Super light gray for better readability */
                 .container { padding: 20px; max-width: 600px; margin: auto; }
                 .button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px; }
                 .button:hover { background-color: #45a049; }
-                .logo { width: 500px; height: auto; margin-bottom: 20px; } /* Adjust the width as desired */
+                .logo { width: 500px; height: auto; margin-bottom: 20px; }
             </style>
         </head>
         <body>
             <div class="container">
-                <img src="/GROWING horizontal.png" alt="Ecosense Seeds Logo" class="logo">
+                <img src="/GROWING GREEN.png" alt="Ecosense Seeds Logo" class="logo">
                 <h1>Bienvenido a la API de ECOSENSE SEEDS</h1>
                 <p>El servidor está corriendo correctamente.</p>
                 <p>Esta API permite gestionar los datos de sensores de temperatura, humedad, luz, motores y anemómetros.</p>
