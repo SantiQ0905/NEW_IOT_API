@@ -18,7 +18,7 @@ Santiago Quintana Moreno A01571222
 const dbHost = "mysql-1029d018-irvinornelas2005-45db.e.aivencloud.com";
 const dbPort = "16551";
 const dbUser = "avnadmin";
-const dbPass = "AVNS_fzVzMiarDxMUFDop0Do";
+const dbPass = "AVNS_vpIyR4RVAho-2_Z9cB5";
 const dbName = "iot";
 
 // Configuración del servidor
