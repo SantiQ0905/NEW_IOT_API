@@ -15,10 +15,10 @@ Santiago Quintana Moreno A01571222
 */
 
 // Configuración de la base de datos y del servidor.
-const dbHost = "mysql-2cb3001c-tec-ccea.d.aivencloud.com";
-const dbPort = "17179";
+const dbHost = "mysql-1029d018-irvinornelas2005-45db.e.aivencloud.com";
+const dbPort = "16551";
 const dbUser = "avnadmin";
-const dbPass = "AVNS_vpIyR4RVAho-2_Z9cB5";
+const dbPass = "AVNS_fzVzMiarDxMUFDop0Do";
 const dbName = "iot";
 
 // Configuración del servidor
@@ -54,16 +54,16 @@ const postAnemometerSensor = '/insertAnemometer';
 // Temperature Sensor Queries
 const selectTemperature = 'SELECT * FROM ambientTempHum_sensor';
 const selectTemperatureByDate = 'SELECT * FROM ambientTempHum_sensor WHERE fecha BETWEEN ? AND ?';
-const insertTemperature = 'INSERT INTO ambientTempHum_sensor (ID_TSensor, ID_Plant, Value1, Value2, date) VALUES (?, ?, ?, ?, ?)';
+const insertTemperature = 'CALL INSERTTEMPHUM(?,?,?,?)';
 
 // Soil Moisture Sensor Queries
 const selectSoilMoisture = 'SELECT * FROM sensor_soil_moisture';
-const insertSoilMoisture = 'INSERT INTO sensor_soil_moisture (ID_EHSensor, ID_Plant, Value, Date) VALUES (?, ?, ?, ?)';
+const insertSoilMoisture = 'CALL INSERTSOILMOISTURE(?,?,?)';
 
 // Light Sensor Queries
 const selectLight = 'SELECT * FROM light_sensor';
 const selectLightByDate = 'SELECT * FROM light_sensor WHERE fecha BETWEEN ? AND ?';
-const insertLight = 'INSERT INTO light_sensor (light) VALUES (?)';
+const insertLight = 'CALL INSERTLIGHT';
 
 // Servo Motor Sensor Queries
 const selectServoMotor = 'SELECT * FROM motor_actuator';
@@ -73,7 +73,7 @@ const insertServoMotor = 'INSERT INTO motor_actuator (servo_motor) VALUES (?)';
 // Anemometer Sensor Queries
 const selectAnemometer = 'SELECT * FROM wind_sensor';
 const selectAnemometerByDate = 'SELECT * FROM wind_sensor WHERE fecha BETWEEN ? AND ?';
-const insertAnemometer = 'INSERT INTO wind_sensor (wind) VALUES (?)';
+const insertAnemometer = 'CALL INSERTWIND(?,?,?)';
 
 // Exportar las constantes
 module.exports = {

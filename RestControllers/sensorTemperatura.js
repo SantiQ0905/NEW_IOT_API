@@ -83,20 +83,18 @@ async function getLogByDateBetween(req,res){
 
 // -- insertLogTemperatura --
 // Este método realiza un insert en la tabla "ambientTempHum_sensor" con los valores que se reciban en el cuerpo de la petición.
-
 async function insertLogTemperatura(req,res){
   try{
-    var sql = "INSERT INTO ambientTempHum_sensor (ID_TSensor, ID_Plant, Value1, Value2, date) VALUES (?, ?, ?, ?, ?)";
+    var sql = "CALL INSERTTEMPHUM(?,?,?,?)";
     var ID_TSensor = req.body.ID_TSensor;
     var ID_Plant = req.body.ID_Plant;
     var Value1 = req.body.Value1;
     var Value2 = req.body.Value2;
-    var date = req.body.date;
   
     var conn = mysql.getConnection();
     conn.connect((error)=>{
         if (error) throw error;
-        var params = [ID_TSensor, ID_Plant, Value1, Value2, date]; 
+        var params = [ID_TSensor, ID_Plant, Value1, Value2]; 
         conn.execute(sql, params, (error, data, fields) => {
             if (error) {
               res.status(500);
