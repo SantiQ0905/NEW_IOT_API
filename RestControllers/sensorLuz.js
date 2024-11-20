@@ -84,20 +84,17 @@ async function getLightLogByDateBetween(req, res) {
 // Este método realiza un insert en la tabla "light_sensor".
 async function insertLogLight(req, res) {
   try {
-    var sql = "INSERT INTO light_sensor (ID_LSensor, ID_Plant, Value, Date) VALUES (?, ?, ?, ?)";
+    var sql = "CALL INSERTLIGHT(?,?,?)";
     var ID_LSensor = req.body.ID_LSensor;
     var ID_Plant = req.body.ID_Plant;
     var Value = req.body.Value;
-    var Date = req.body.Date;
-
     var conn = mysql.getConnection();
     conn.connect((error) => {  // Establish the connection
       if (error) {
         res.status(500).send("Connection error: " + error.message);
         return;
       }
-
-      var params = [ID_LSensor, ID_Plant, Value, Date];
+      var params = [ID_LSensor, ID_Plant, Value];
       conn.execute(sql, params, (error, data) => {  // Execute the query with parameters
         if (error) {
           res.status(500).send("Query error: " + error.message);
