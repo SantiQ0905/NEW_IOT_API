@@ -65,15 +65,17 @@ const selectLight = 'SELECT * FROM light_sensor';
 const selectLightByDate = 'SELECT * FROM light_sensor WHERE fecha BETWEEN ? AND ?';
 const insertLight = 'CALL INSERTLIGHT';
 
-// Servo Motor Sensor Queries
-const selectServoMotor = 'SELECT * FROM motor_actuator';
-const selectServoMotorByDate = 'SELECT * FROM motor_actuator WHERE fecha BETWEEN ? AND ?';
-const insertServoMotor = 'INSERT INTO motor_actuator (servo_motor) VALUES (?)';
+// Servo Motor Queries
+const selectServoMotor = 'SELECT * FROM Plant_ServoLog';
+const selectServoMotorByDate = 'SELECT * FROM Plant_ServoLog WHERE Date BETWEEN ? AND ?';
+const insertServoMotor = 'CALL PopulatePlantServoLog(?, ?, ?)';
 
 // Anemometer Sensor Queries
 const selectAnemometer = 'SELECT * FROM wind_sensor';
 const selectAnemometerByDate = 'SELECT * FROM wind_sensor WHERE fecha BETWEEN ? AND ?';
 const insertAnemometer = 'CALL INSERTWIND(?,?,?)';
+
+
 
 // Exportar las constantes
 module.exports = {

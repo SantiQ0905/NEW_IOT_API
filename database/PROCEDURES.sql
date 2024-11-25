@@ -48,3 +48,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE PopulatePlantServoLog (
+    IN input_servo_id INT,
+    IN input_plant_id INT,
+    IN input_value FLOAT
+)
+BEGIN
+    INSERT INTO Plant_ServoLog (ID_Servo, ID_Plant, Value)
+    VALUES (input_servo_id, input_plant_id, input_value);
+END //
+DELIMITER ;

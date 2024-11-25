@@ -1,146 +1,126 @@
-/*
--- iot.js --
 
-En este archivo se encuentran las instrucciones para la creación de la base de datos que se utilizará en el proyecto de IoT.
-El archivo se encuentra dividido en dos partes: la primera parte contiene la creación de las tablas que se utilizarán en el proyecto, y 
-la segunda parte contiene la inserción de datos de prueba en las tablas.
-
-Autor: 
-Santiago Quintana Moreno A01571222
-
-Equipo #1: “Null”
-Javier Santos Pérez A01198909
-Irvin David Ornelas García A00839065
-Alejandro Orta Rodríguez A00840490
-*/
-
-
-CREATE TABLE motor_actuator (
-    ID_Servo INT PRIMARY KEY,
-    Log TEXT,
-    Date INT
-);
-
+-- Plant details
 CREATE TABLE Plant (
-    ID_Plant INT PRIMARY KEY,
-    Name_Plant VARCHAR(255),
-    Desc_Plant TEXT
+                       ID_Plant INT AUTO_INCREMENT PRIMARY KEY,
+                       Name_Plant VARCHAR(255) NOT NULL,
+                       Desc_Plant TEXT
 );
 
+-- Servo catalog for managing servo details
+CREATE TABLE Servo_Catalog (
+                               ID_Servo INT AUTO_INCREMENT PRIMARY KEY,
+                               Servo_Name VARCHAR(255) NOT NULL
+);
+
+-- Plant configuration for linking servos to plants
+CREATE TABLE Plant_ServoConfig (
+                                   ID INT AUTO_INCREMENT PRIMARY KEY,
+                                   ID_Servo INT NOT NULL,
+                                   ID_Plant INT NOT NULL,
+                                   FOREIGN KEY (ID_Servo) REFERENCES Servo_Catalog(ID_Servo),
+                                   FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+-- Log for servo-related actions for all plants
+CREATE TABLE Plant_ServoLog (
+                                ID INT AUTO_INCREMENT PRIMARY KEY,
+                                ID_Servo INT NOT NULL,
+                                ID_Plant INT NOT NULL,
+                                Value FLOAT NOT NULL,
+                                Date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                FOREIGN KEY (ID_Servo) REFERENCES Servo_Catalog(ID_Servo),
+                                FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+);
+
+-- User details
 CREATE TABLE User (
-    ID_User INT PRIMARY KEY,
-    name VARCHAR(255),
-    password VARCHAR(255)
+                      ID_User INT AUTO_INCREMENT PRIMARY KEY,
+                      name VARCHAR(255) NOT NULL,
+                      password VARCHAR(255) NOT NULL
 );
 
+-- Settings for users
 CREATE TABLE Settings (
-    ID_Settings INT PRIMARY KEY,
-    Screen_Mode VARCHAR(50)
+                          ID_Settings INT AUTO_INCREMENT PRIMARY KEY,
+                          Screen_Mode VARCHAR(50)
 );
 
+-- Sensor catalog for managing sensors
 CREATE TABLE Sensor_Catalog (
-    ID_Sensor INT PRIMARY KEY,
-    SensorType VARCHAR(50)
+                                ID_Sensor INT AUTO_INCREMENT PRIMARY KEY,
+                                SensorType VARCHAR(50) NOT NULL
 );
 
+-- Ambient temperature and humidity sensor data
 CREATE TABLE ambientTempHum_sensor (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_TSensor INT,
-    ID_Plant INT,
-    Value1 FLOAT,
-    Value2 FLOAT,
-    Date INT,
-    FOREIGN KEY (ID_TSensor) REFERENCES Sensor_Catalog(ID_Sensor),
-    FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+                                       ID INT AUTO_INCREMENT PRIMARY KEY,
+                                       ID_TSensor INT NOT NULL,
+                                       ID_Plant INT NOT NULL,
+                                       Value1 FLOAT NOT NULL,
+                                       Value2 FLOAT NOT NULL,
+                                       Date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                       FOREIGN KEY (ID_TSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                                       FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
 );
 
+-- Wind sensor data
 CREATE TABLE wind_sensor (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_ASensor INT,
-    ID_Plant INT,
-    Value FLOAT,
-    Date INT,
-    FOREIGN KEY (ID_ASensor) REFERENCES Sensor_Catalog(ID_Sensor),
-    FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+                             ID INT AUTO_INCREMENT PRIMARY KEY,
+                             ID_ASensor INT NOT NULL,
+                             ID_Plant INT NOT NULL,
+                             Value FLOAT NOT NULL,
+                             Date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                             FOREIGN KEY (ID_ASensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                             FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
 );
 
+-- Light sensor data
 CREATE TABLE light_sensor (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_LSensor INT,
-    ID_Plant INT,
-    Value FLOAT,
-    Date INT,
-    FOREIGN KEY (ID_LSensor) REFERENCES Sensor_Catalog(ID_Sensor),
-    FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+                              ID INT AUTO_INCREMENT PRIMARY KEY,
+                              ID_LSensor INT NOT NULL,
+                              ID_Plant INT NOT NULL,
+                              Value FLOAT NOT NULL,
+                              Date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              FOREIGN KEY (ID_LSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                              FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
 );
 
+-- Soil moisture sensor data
 CREATE TABLE sensor_soil_moisture (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_EHSensor INT,
-    ID_Plant INT,
-    Value FLOAT,
-    Date INT,
-    FOREIGN KEY (ID_EHSensor) REFERENCES Sensor_Catalog(ID_Sensor),
-    FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+                                      ID INT AUTO_INCREMENT PRIMARY KEY,
+                                      ID_EHSensor INT NOT NULL,
+                                      ID_Plant INT NOT NULL,
+                                      Value FLOAT NOT NULL,
+                                      Date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                      FOREIGN KEY (ID_EHSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                                      FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
 );
 
+-- Air velocity log
 CREATE TABLE AirV_Log (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_AHSensor INT,
-    ID_Plant INT,
-    Value FLOAT,
-    Date INT,
-    FOREIGN KEY (ID_AHSensor) REFERENCES Sensor_Catalog(ID_Sensor),
-    FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+                          ID INT AUTO_INCREMENT PRIMARY KEY,
+                          ID_AHSensor INT NOT NULL,
+                          ID_Plant INT NOT NULL,
+                          Value FLOAT NOT NULL,
+                          Date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                          FOREIGN KEY (ID_AHSensor) REFERENCES Sensor_Catalog(ID_Sensor),
+                          FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
 );
 
-CREATE TABLE Plant_Servo (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_Servo INT,
-    ID_Plant INT,
-    FOREIGN KEY (ID_Servo) REFERENCES motor_actuator(ID_Servo),
-    FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
-);
-
+-- User-Plant relationship
 CREATE TABLE Plant_User (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_User INT,
-    ID_Plant INT,
-    FOREIGN KEY (ID_User) REFERENCES User(ID_User),
-    FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
+                            ID INT AUTO_INCREMENT PRIMARY KEY,
+                            ID_User INT NOT NULL,
+                            ID_Plant INT NOT NULL,
+                            FOREIGN KEY (ID_User) REFERENCES User(ID_User),
+                            FOREIGN KEY (ID_Plant) REFERENCES Plant(ID_Plant)
 );
 
+-- User-Settings relationship
 CREATE TABLE User_Settings (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_User INT,
-    ID_Settings INT,
-    FOREIGN KEY (ID_User) REFERENCES User(ID_User),
-    FOREIGN KEY (ID_Settings) REFERENCES Settings(ID_Settings)
+                               ID INT AUTO_INCREMENT PRIMARY KEY,
+                               ID_User INT NOT NULL,
+                               ID_Settings INT NOT NULL,
+                               FOREIGN KEY (ID_User) REFERENCES User(ID_User),
+                               FOREIGN KEY (ID_Settings) REFERENCES Settings(ID_Settings)
 );
-
-DELIMITER //
-
-CREATE PROCEDURE GetRecentSensorReadings(
-    IN p_PlantID INT,
-    IN p_SensorType VARCHAR(50),
-    IN p_Date INT
-)
-BEGIN
-    SELECT sc.SensorType, ats.Value1 AS Temperature, ats.Value2 AS Humidity, ws.Value AS WindSpeed,
-           ls.Value AS Light, ss.Value AS SoilMoisture, avl.Value AS AirVelocity
-    FROM Plant AS p
-             JOIN ambientTempHum_sensor AS ats ON p.ID_Plant = ats.ID_Plant
-             JOIN wind_sensor AS ws ON p.ID_Plant = ws.ID_Plant
-             JOIN light_sensor AS ls ON p.ID_Plant = ls.ID_Plant
-             JOIN sensor_soil_moisture AS ss ON p.ID_Plant = ss.ID_Plant
-             JOIN AirV_Log AS avl ON p.ID_Plant = avl.ID_Plant
-             JOIN Sensor_Catalog AS sc ON sc.ID_Sensor = ats.ID_TSensor OR sc.ID_Sensor = ws.ID_ASensor
-        OR sc.ID_Sensor = ls.ID_LSensor OR sc.ID_Sensor = ss.ID_EHSensor
-        OR sc.ID_Sensor = avl.ID_AHSensor
-    WHERE p.ID_Plant = p_PlantID AND sc.SensorType = p_SensorType AND
-        (ats.Date >= p_Date OR ws.Date >= p_Date OR ls.Date >= p_Date
-            OR ss.Date >= p_Date OR avl.Date >= p_Date)
-    ORDER BY ats.Date DESC, ws.Date DESC, ls.Date DESC, ss.Date DESC, avl.Date DESC;
-END //
-
-DELIMITER ;
